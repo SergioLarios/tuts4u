@@ -21,23 +21,25 @@ public class BeanToStringTest {
 		
 		// TB Hijo 1
 		TestBean tbs =  new TestBean();
+		tbs.setString1("SON");
 		List<Long> tbsl = new ArrayList<Long>();
-		tbsl.add(0L);tbsl.add(1L);tbsl.add(2L);tbsl.add(3L);
+		tbsl.add(4L);tbsl.add(5L);tbsl.add(6L);tbsl.add(7L);
 		tb.setList1(tbsl);
 		
 		// TB Nieto 1
 		TestBean tbg =  new TestBean();
+		tbg.setString1("GRANDSON");
 		List<Long> tbgl = new ArrayList<Long>();
-		tbgl.add(0L);tbgl.add(1L);tbgl.add(2L);tbgl.add(3L);
+		tbgl.add(8L);tbgl.add(9L);tbgl.add(10L);tbgl.add(11L);
 		tb.setList1(tbgl);
-		
+		 
 		// Asignamiento
 		
 		tbs.setTb(tbg);
 		tb.setTb(tbs);
 		
-//		tb.toStringLog(log);
-//		System.out.println(tb.toString());
+		tb.toStringLog(log);
+		System.out.println(tb.toString());
 		System.out.println(tb.toStringLite());
 	}
 	

@@ -28,11 +28,15 @@ public abstract class BeanToString {
 	}
 	
 	public String toStringLite() {
-		return toStringLite(getClass(), this);
+		return toStringLite(getClass(), this, false);
+	}
+	
+	public String toStringLite(boolean isRecursive) {
+		return toStringLite(getClass(), this, isRecursive);
 	}
 	
 	public String toJSONString() {
-		return toStringLite(getClass(), this);
+		return toStringLite(getClass(), this, false);
 	}
 	
 	/* *******************************
@@ -62,21 +66,33 @@ public abstract class BeanToString {
 		
 	}
 
-	private String toStringLite(Class clazz, Object obj) {
-		
+	private String toStringLite(Class clazz, Object obj, boolean isRecursive) {
 		Field[] fields = clazz.getDeclaredFields();
-		String fieldValue = BLANK;
+		Object fieldObject = null;
 		JSONObject jso = new JSONObject();
-		
+		StringBuffer sb = new StringBuffer();
+
 		for (Field field : fields) {
 			
-			fieldValue = getFieldValue(clazz, field, obj);
+			fieldObject = getFieldObject(clazz, field, obj);
+			if (isSonOfBeanToString(fieldObject) && field != null) {
+				sb.append(QUOTE + field.getName() + QUOTE + COMMA);
+				try {
+					Method meth = clazz.getMethod(TO_STRING_LITE, boolean.class);
+					sb.append(meth.invoke(fieldObject, true));
+				} catch (Exception e) {e.printStackTrace();
+					sb.append(fieldObject);
+				}
+			}
+			else {
+				jso.put(field.getName(), fieldObject);
+			}
 			
-			jso.put(field.getName(), fieldValue);
 			
 		}
-		
-		return clazz.getSimpleName() + COLON + SPACE + jso.toJSONString();
+
+		String prev = jso.toJSONString().substring(0, jso.toJSONString().length() -1) + COMMA;
+		return prev + sb.toString() + CLOSE_CURLY_BRACE;
 	}
 	
 	
@@ -111,13 +127,62 @@ public abstract class BeanToString {
 			
 		}
 		else {
+			String fieldValue = BLANK;
+			Object fieldObject = getFieldObject(clazz, field, obj);
+			if (isSonOfBeanToString(fieldObject)) {
+				Class subClass = fieldObject.getClass();
+				Field[] fields = subClass.getDeclaredFields();
+				
+				append(logObjs, fieldName + fieldValue + NEW_LINE);
+				
+				String tabs = (String) logObjs[2];
+				logObjs[2] = tabs + TAB;
+				
+				for (Field subField : fields) {
+					logObjs = recursiveString(subClass, fieldObject, subField, logObjs);
+				}
+				
+			}
+			else {
+				fieldValue = getFieldValue(clazz, field, obj);
+				append(logObjs, fieldName + fieldValue + NEW_LINE);
+			}
 			
-			String fieldValue = getFieldValue(clazz, field, obj);
-			
-			append(logObjs, fieldName + fieldValue + NEW_LINE);
 		}
 		
 		return logObjs;
+	}
+	
+	/**
+	 * Determinate if the property is an Object which extends from BeanToString
+	 * @param fieldObject
+	 * @param clazz
+	 * @return
+	 */
+	private static boolean isSonOfBeanToString(Object fieldObject) {
+		
+		Class fieldClass = null;
+		try {
+			fieldClass = fieldObject.getClass();
+			
+			Class parentClass = fieldClass.getSuperclass();
+			
+			if (parentClass != null) {
+				if (parentClass.toString().equals(THIS_CLASS)) {
+					return true;
+				}
+				return false;
+			}
+			else {
+				return false;
+			}
+			
+		} catch (Exception e) {
+			return false;
+		}
+		
+		
+		
 	}
 	
 	/**
@@ -153,15 +218,33 @@ public abstract class BeanToString {
 	}
 	
 	/**
-	 * Gets the field value given its class, the desired field and an instance
+	 * Gets the field value as String given: its class, the desired field and an instance
 	 * @param clazz
 	 * @param field
 	 * @param obj
 	 * @return
 	 */
 	private static String getFieldValue(Class clazz, Field field, Object obj) {
-		String fieldValue = null;
+		Object fieldValue =  getFieldObject(clazz, field, obj);
+		if (fieldValue == null) {
+			return NULL;
+		}
+		else {
+			return fieldValue.toString();
+		}
 		
+	}
+	
+	
+	/**
+	 * Gets the field value as String given: its class, the desired field and an instance
+	 * @param clazz
+	 * @param field
+	 * @param obj
+	 * @return
+	 */
+	private static Object getFieldObject(Class clazz, Field field, Object obj) {
+		Object fieldObject = null;
 		try {
 			
 			String fieldName = upperCaseFirstLetter(field.getName());
@@ -172,18 +255,18 @@ public abstract class BeanToString {
 					fieldGetter = checkMethod(GET + fieldName, clazz);
 				}
 				Object returnObj = fieldGetter.invoke(obj);
-				return (returnObj == null) ? NULL : returnObj.toString();
+				return (returnObj == null) ? null : returnObj;
 			}
 			else {
 				Method fieldGetter = clazz.getDeclaredMethod(GET + fieldName);
 				Object returnObj = fieldGetter.invoke(obj);
-				return (returnObj == null) ? NULL : returnObj.toString();
+				return (returnObj == null) ? null : returnObj;
 			}
 		} catch (Exception e) {
-			fieldValue = NO_GETTER;
+			fieldObject = null;
 		}
 		
-		return fieldValue;
+		return fieldObject;
 	}
 	
 	/**
@@ -248,7 +331,8 @@ public abstract class BeanToString {
 	private static final String GET = "get";
 	private static final String IS = "is";
 	private static final String NULL = "null";
-	private static final String NO_GETTER = "No getter defined";
 	private static final String SEPARATOR = "_________";
+	private static final String THIS_CLASS = BeanToString.class.toString();
+	private static final String TO_STRING_LITE = "toStringLite";
 	
 }
