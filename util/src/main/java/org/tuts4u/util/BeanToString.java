@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
+import org.json.simple.JSONObject;
 
 import static org.tuts4u.constant.StringPool.*;
 
@@ -18,12 +19,20 @@ public abstract class BeanToString {
 	
 	@Override
 	public String toString() {
-		return toStringPrivate(getClass(), this, null, 0);
+		String ret = toStringPrivate(getClass(), this, null, 0);
+		return ret.substring(0, ret.length() -1);
 	}
 	
 	public String toStringLog(Logger log) {
-		System.out.println(this.getClass());
 		return toStringPrivate(getClass(), this, log, 0);
+	}
+	
+	public String toStringLite() {
+		return toStringLite(getClass(), this);
+	}
+	
+	public String toJSONString() {
+		return toStringLite(getClass(), this);
 	}
 	
 	/* *******************************
@@ -52,23 +61,60 @@ public abstract class BeanToString {
 		return sb.toString();
 		
 	}
+
+	private String toStringLite(Class clazz, Object obj) {
+		
+		Field[] fields = clazz.getDeclaredFields();
+		String fieldValue = BLANK;
+		JSONObject jso = new JSONObject();
+		
+		for (Field field : fields) {
+			
+			fieldValue = getFieldValue(clazz, field, obj);
+			
+			jso.put(field.getName(), fieldValue);
+			
+		}
+		
+		return clazz.getSimpleName() + COLON + SPACE + jso.toJSONString();
+	}
+	
 	
 	private static Object[] recursiveString(Class clazz, Object obj, Field field, Object[] logObjs) {
 		
+		String fieldName = upperCaseFirstLetter(field.getName()) + SPACE + COLON + SPACE;
+		
 		if (isCollection(field)) {
 			
-			Collection col = getCollection(clazz, field, logObjs);
+			Collection col = getCollection(clazz, field, obj);
 			
-			for (Object object : col) {
-				append(logObjs, "" + object);
+			if (col != null) {
+				
+				String lsStr = fieldName + OPEN_CURLY_BRACE;
+				
+				int cont = 1;
+				int size = col.size();
+				
+				for (Object object : col) {
+					if (cont >= size) {
+						lsStr = lsStr + object.toString();
+					}
+					else {
+						lsStr = lsStr + object.toString() + COMMA + SPACE;
+					}
+					
+					cont ++;
+				}
+				
+				append(logObjs, lsStr + CLOSE_CURLY_BRACE + NEW_LINE);
 			}
 			
 		}
 		else {
-			String fieldName = upperCaseFirstLetter(field.getName());
+			
 			String fieldValue = getFieldValue(clazz, field, obj);
 			
-			append(logObjs, fieldName + SPACE + COLON + SPACE + fieldValue + NEW_LINE);
+			append(logObjs, fieldName + fieldValue + NEW_LINE);
 		}
 		
 		return logObjs;
@@ -191,6 +237,7 @@ public abstract class BeanToString {
 		if (log !=  null) {
 			log.info(tabs + msg);
 		}
+		
 		return sb;
 	}
 	

@@ -158,6 +158,14 @@
 			<version>4.1.10.Final</version>
 		</dependency>
 
+		<!-- JSON libs -->
+		<dependency>
+			<groupId>com.googlecode.json-simple</groupId>
+			<artifactId>json-simple</artifactId>
+			<version>1.1.1</version>
+		</dependency>
+
+
 		<!-- Tomcat naming factory (For tests) -->
 		<dependency>
 			<groupId>tomcat</groupId>

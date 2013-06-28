@@ -9,7 +9,9 @@ public class TestBean extends BeanToString{
 	private String string1;
 	private boolean boolean1;
 	private List<Long> list1;
-
+	private TestBean tb;
+	
+	
 	public String getString1() {
 		return string1;
 	}
@@ -32,6 +34,14 @@ public class TestBean extends BeanToString{
 
 	public void setList1(List<Long> list1) {
 		this.list1 = list1;
+	}
+
+	public TestBean getTb() {
+		return tb;
+	}
+
+	public void setTb(TestBean tb) {
+		this.tb = tb;
 	}
 	
 }

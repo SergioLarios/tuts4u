@@ -13,12 +13,32 @@ public class BeanToStringTest {
 	@Test
 	public void utilTest() {
 		
+		// TB Padre
 		TestBean tb =  new TestBean();
-		List<Long> lgs = new ArrayList<Long>();
-		lgs.add(0L);lgs.add(1L);lgs.add(2L);lgs.add(3L);
-		tb.setList1(lgs);
-		System.out.println(tb.toStringLog(log));
+		List<Long> tbl = new ArrayList<Long>();
+		tbl.add(0L);tbl.add(1L);tbl.add(2L);tbl.add(3L);
+		tb.setList1(tbl);
 		
+		// TB Hijo 1
+		TestBean tbs =  new TestBean();
+		List<Long> tbsl = new ArrayList<Long>();
+		tbsl.add(0L);tbsl.add(1L);tbsl.add(2L);tbsl.add(3L);
+		tb.setList1(tbsl);
+		
+		// TB Nieto 1
+		TestBean tbg =  new TestBean();
+		List<Long> tbgl = new ArrayList<Long>();
+		tbgl.add(0L);tbgl.add(1L);tbgl.add(2L);tbgl.add(3L);
+		tb.setList1(tbgl);
+		
+		// Asignamiento
+		
+		tbs.setTb(tbg);
+		tb.setTb(tbs);
+		
+//		tb.toStringLog(log);
+//		System.out.println(tb.toString());
+		System.out.println(tb.toStringLite());
 	}
 	
 }
