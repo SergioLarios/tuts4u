@@ -1,4 +1,4 @@
-package org.tuts4u.form;
+package org.tuts4u.util;
 
 public abstract class AbstractForm {
 

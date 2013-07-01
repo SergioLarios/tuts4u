@@ -6,10 +6,9 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import org.postgresql.ds.PGSimpleDataSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:META-INF/application-context.xml")
@@ -32,15 +31,15 @@ public abstract class DatabaseConectionTest {
 			ic.createSubcontext("java:/comp/env/jdbc");
 			
 			// Create data source
-			MysqlConnectionPoolDataSource dataSource = new MysqlConnectionPoolDataSource();
-			dataSource.setUser("root");
+			PGSimpleDataSource dataSource = new PGSimpleDataSource();
+			dataSource.setUser("postgres");
 			dataSource.setPassword("root");
 			dataSource.setServerName("localhost");
-			dataSource.setPort(3306);
-			dataSource.setDatabaseName("liferay4you");
+			dataSource.setDatabaseName("tu4");
+			dataSource.setPortNumber(5432);
 			
 			// finally bind the datasoruce
-			ic.bind("java:/comp/env/jdbc/l4u", dataSource);
+			ic.bind("java:/comp/env/jdbc/t4u", dataSource);
 			
 		} catch (Exception e) {
 			log.error("Database connection failed", e);

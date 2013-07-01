@@ -1,6 +1,8 @@
 package org.tuts4u.form;
 
-public class LoginForm extends AbstractForm{
+import org.tuts4u.util.BeanToString;
+
+public class LoginForm extends BeanToString{
 
 	/* *******************************
 	 ********* Form Fields ***********
@@ -25,19 +27,5 @@ public class LoginForm extends AbstractForm{
 
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
-	
-	/* *******************************
-	 ************ toString() *********
-	 ******************************* */
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("\n__________LoginForm__________\n");
-		sb.append("userMail: " + userMail + "\n");
-		
-		return sb.toString();
-	}
 	
 }

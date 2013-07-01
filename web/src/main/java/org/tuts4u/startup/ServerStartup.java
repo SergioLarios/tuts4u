@@ -27,6 +27,7 @@ public class ServerStartup {
 		
 		Permission controlPanelPermission = permissionLocalService.findById(permissionId);
 
+		
 		if (controlPanelPermission == null) {
 			
 			controlPanelPermission = new Permission();
