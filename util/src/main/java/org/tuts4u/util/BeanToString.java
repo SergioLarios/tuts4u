@@ -11,7 +11,7 @@ import static org.tuts4u.constant.StringPool.*;
 
 
 @SuppressWarnings(value = {"rawtypes", "unchecked"})
-public abstract class BeanToString extends AbstractForm {
+public abstract class BeanToString {
 
 	/* *******************************
 	 ****** Overridden toString ******

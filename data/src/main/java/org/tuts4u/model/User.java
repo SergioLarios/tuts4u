@@ -51,21 +51,4 @@ public class User {
 	public boolean isAdmin() { return admin; }
 	public void setAdmin(boolean admin) { this.admin = admin; }
 	
-	/* *******************************
-	 ************ toString() *********
-	 ******************************* */
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("\n__________USER__________\n");
-		sb.append("userId: " + userId + "\n");
-		sb.append("userName: " + userName + "\n");
-		sb.append("mail: " + mail + "\n");
-		sb.append("isAdmin: " + admin + "\n");
-		
-		return sb.toString();
-	}
-	
 }

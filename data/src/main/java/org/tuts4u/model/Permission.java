@@ -51,33 +51,5 @@ public class Permission {
 	
 	public List<Long> getUserIdList() { return userIdList; }
 	public void setUserIdList(List<Long> userIdList) { this.userIdList = userIdList; }
-	
-	/* *******************************
-	 ************ toString() *********
-	 ******************************* */
 
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("\n__________PERMISSION__________\n");
-		sb.append("action: " + action + "\n");
-		sb.append("type: " + type + "\n");
-		sb.append("isPublic: " + isPublic + "\n");
-		if (userIdList != null && userIdList.size() > 0) {
-			sb.append("userIdList: [");
-			for (Long l : userIdList) {
-				sb.append(l + ",");
-			}
-			sb.deleteCharAt(sb.length() -1);
-			sb.append("]\n");
-		}
-		else {
-			sb.append("userIdList is NULL or empty\n");
-		}
-		
-		
-		return sb.toString();
-	}
-	
 }

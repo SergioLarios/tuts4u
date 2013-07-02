@@ -1,6 +1,6 @@
 package org.tuts4u.util;
 
-public abstract class AbstractForm {
+public abstract class AbstractForm extends BeanToString {
 
 	/* *******************************
 	 ********* Form Fields ***********

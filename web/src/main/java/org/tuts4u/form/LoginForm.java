@@ -1,8 +1,8 @@
 package org.tuts4u.form;
 
-import org.tuts4u.util.BeanToString;
+import org.tuts4u.util.AbstractForm;
 
-public class LoginForm extends BeanToString{
+public class LoginForm extends AbstractForm {
 
 	/* *******************************
 	 ********* Form Fields ***********
