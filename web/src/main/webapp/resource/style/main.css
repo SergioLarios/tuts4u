@@ -23,11 +23,12 @@ body {
 	border-radius: 10px;
 	padding: 10px;
 	clear: both;
+	box-shadow: 0px 0px 10px #AAA;
 }
 
 .header {
 	width: 90%;
-	height: 90px;
+	height: 80px;
 	margin: 0 auto;
 }
 
