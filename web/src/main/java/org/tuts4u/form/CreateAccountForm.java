@@ -2,7 +2,7 @@ package org.tuts4u.form;
 
 import org.tuts4u.util.AbstractForm;
 
-public class CreateAccountForm extends AbstractForm{
+public class CreateAccountForm extends AbstractForm {
 	
 	/* *******************************
 	 ********* Form Fields ***********
