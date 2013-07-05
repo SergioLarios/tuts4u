@@ -76,7 +76,7 @@ public abstract class BeanToString {
 			
 			fieldObject = getFieldObject(clazz, field, obj);
 			if (isSonOfBeanToString(fieldObject) && field != null) {
-				sb.append(QUOTE + field.getName() + QUOTE + COMMA);
+				sb.append(QUOTE + field.getName() + QUOTE + COLON);
 				try {
 					Method meth = clazz.getMethod(TO_STRING_LITE, boolean.class);
 					sb.append(meth.invoke(fieldObject, true));
@@ -91,8 +91,16 @@ public abstract class BeanToString {
 			
 		}
 
-		String prev = jso.toJSONString().substring(0, jso.toJSONString().length() -1) + COMMA;
-		return prev + sb.toString() + CLOSE_CURLY_BRACE;
+		if (sb.length() <= 0) {
+			return jso.toJSONString();
+		}
+		else {
+			String prev = jso.toJSONString().substring(0, jso.toJSONString().length() -1) + COMMA;
+			String mid = sb.toString();
+			mid = mid.substring(0, mid.length() -1) + CLOSE_CURLY_BRACE;
+			return prev + mid + CLOSE_CURLY_BRACE;
+		}
+		
 	}
 	
 	
@@ -161,17 +169,11 @@ public abstract class BeanToString {
 	 */
 	private static boolean isSonOfBeanToString(Object fieldObject) {
 		
-		Class fieldClass = null;
 		try {
-			fieldClass = fieldObject.getClass();
 			
-			Class parentClass = fieldClass.getSuperclass();
-			
-			if (parentClass != null) {
-				if (parentClass.toString().equals(THIS_CLASS)) {
-					return true;
-				}
-				return false;
+			if (fieldObject != null) {
+				BeanToString.class.cast(fieldObject);
+				return true;
 			}
 			else {
 				return false;
@@ -332,7 +334,6 @@ public abstract class BeanToString {
 	private static final String IS = "is";
 	private static final String NULL = "null";
 	private static final String SEPARATOR = "_________";
-	private static final String THIS_CLASS = BeanToString.class.toString();
 	private static final String TO_STRING_LITE = "toStringLite";
 	
 }
