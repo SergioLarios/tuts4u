@@ -106,54 +106,59 @@ public abstract class BeanToString {
 	
 	private static Object[] recursiveString(Class clazz, Object obj, Field field, Object[] logObjs) {
 		
-		String fieldName = upperCaseFirstLetter(field.getName()) + SPACE + COLON + SPACE;
-		
-		if (isCollection(field)) {
+		NoString noString = field.getAnnotation(NoString.class);
+		if (noString == null) {
 			
-			Collection col = getCollection(clazz, field, obj);
+			String fieldName = upperCaseFirstLetter(field.getName()) + SPACE + COLON + SPACE;
 			
-			if (col != null) {
+			if (isCollection(field)) {
 				
-				String lsStr = fieldName + OPEN_CURLY_BRACE;
+				Collection col = getCollection(clazz, field, obj);
 				
-				int cont = 1;
-				int size = col.size();
-				
-				for (Object object : col) {
-					if (cont >= size) {
-						lsStr = lsStr + object.toString();
-					}
-					else {
-						lsStr = lsStr + object.toString() + COMMA + SPACE;
+				if (col != null) {
+					
+					String lsStr = fieldName + OPEN_CURLY_BRACE;
+					
+					int cont = 1;
+					int size = col.size();
+					
+					for (Object object : col) {
+						if (cont >= size) {
+							lsStr = lsStr + object.toString();
+						}
+						else {
+							lsStr = lsStr + object.toString() + COMMA + SPACE;
+						}
+						
+						cont ++;
 					}
 					
-					cont ++;
-				}
-				
-				append(logObjs, lsStr + CLOSE_CURLY_BRACE + NEW_LINE);
-			}
-			
-		}
-		else {
-			String fieldValue = BLANK;
-			Object fieldObject = getFieldObject(clazz, field, obj);
-			if (isSonOfBeanToString(fieldObject)) {
-				Class subClass = fieldObject.getClass();
-				Field[] fields = subClass.getDeclaredFields();
-				
-				append(logObjs, fieldName + fieldValue + NEW_LINE);
-				
-				String tabs = (String) logObjs[2];
-				logObjs[2] = tabs + TAB;
-				
-				for (Field subField : fields) {
-					logObjs = recursiveString(subClass, fieldObject, subField, logObjs);
+					append(logObjs, lsStr + CLOSE_CURLY_BRACE + NEW_LINE);
 				}
 				
 			}
 			else {
-				fieldValue = getFieldValue(clazz, field, obj);
-				append(logObjs, fieldName + fieldValue + NEW_LINE);
+				String fieldValue = BLANK;
+				Object fieldObject = getFieldObject(clazz, field, obj);
+				if (isSonOfBeanToString(fieldObject)) {
+					Class subClass = fieldObject.getClass();
+					Field[] fields = subClass.getDeclaredFields();
+					
+					append(logObjs, fieldName + fieldValue + NEW_LINE);
+					
+					String tabs = (String) logObjs[2];
+					logObjs[2] = tabs + TAB;
+					
+					for (Field subField : fields) {
+						logObjs = recursiveString(subClass, fieldObject, subField, logObjs);
+					}
+					
+				}
+				else {
+					fieldValue = getFieldValue(clazz, field, obj);
+					append(logObjs, fieldName + fieldValue + NEW_LINE);
+				}
+				
 			}
 			
 		}
