@@ -3,13 +3,12 @@ package org.tuts4u.bean;
 import java.util.List;
 
 import org.tuts4u.util.BeanToString;
-import org.tuts4u.util.NoString;
 
 public class TestBean extends BeanToString{
 
 	private String string1;
 	private boolean boolean1;
-	@NoString
+//	@NoString
 	private List<Long> list1;
 	private TestBean tb;
 	

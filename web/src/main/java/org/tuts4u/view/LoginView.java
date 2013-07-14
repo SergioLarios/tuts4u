@@ -1,6 +1,8 @@
 package org.tuts4u.view;
 
-public class LoginView {
+import org.tuts4u.util.BeanToString;
+
+public class LoginView extends BeanToString {
 	
 	/* *******************************
 	 ********* View fields ***********
@@ -26,20 +28,5 @@ public class LoginView {
 	
 	public String getMessage() { return message; }
 	public void setMessage(String message) { this.message = message; }
-	
-	/* *******************************
-	 ************ toString() *********
-	 ******************************* */
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("\n__________LoginView__________\n");
-		sb.append("type: " + type + "\n");
-		sb.append("message: " + message + "\n");
-		
-		return sb.toString();
-	}
 	
 }

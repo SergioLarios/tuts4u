@@ -1,7 +1,10 @@
 package org.tuts4u.util;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Collection;
 
 import org.apache.log4j.Logger;
@@ -74,20 +77,22 @@ public abstract class BeanToString {
 
 		for (Field field : fields) {
 			
-			fieldObject = getFieldObject(clazz, field, obj);
-			if (isSonOfBeanToString(fieldObject) && field != null) {
-				sb.append(QUOTE + field.getName() + QUOTE + COLON);
-				try {
-					Method meth = clazz.getMethod(TO_STRING_LITE, boolean.class);
-					sb.append(meth.invoke(fieldObject, true));
-				} catch (Exception e) {e.printStackTrace();
-					sb.append(fieldObject);
+			if (!Modifier.isFinal(field.getModifiers())) {
+			
+				fieldObject = getFieldObject(clazz, field, obj);
+				if (isSonOfBeanToString(fieldObject) && field != null) {
+					sb.append(QUOTE + field.getName() + QUOTE + COLON);
+					try {
+						Method meth = clazz.getMethod(TO_STRING_LITE, boolean.class);
+						sb.append(meth.invoke(fieldObject, true));
+					} catch (Exception e) {e.printStackTrace();
+						sb.append(fieldObject);
+					}
+				}
+				else {
+					jso.put(field.getName(), fieldObject);
 				}
 			}
-			else {
-				jso.put(field.getName(), fieldObject);
-			}
-			
 			
 		}
 
@@ -107,7 +112,7 @@ public abstract class BeanToString {
 	private static Object[] recursiveString(Class clazz, Object obj, Field field, Object[] logObjs) {
 		
 		NoString noString = field.getAnnotation(NoString.class);
-		if (noString == null) {
+		if (noString == null && !Modifier.isFinal(field.getModifiers())) {
 			
 			String fieldName = upperCaseFirstLetter(field.getName()) + SPACE + COLON + SPACE;
 			
@@ -134,6 +139,9 @@ public abstract class BeanToString {
 					}
 					
 					append(logObjs, lsStr + CLOSE_CURLY_BRACE + NEW_LINE);
+				}
+				else {
+					append(logObjs, fieldName + NULL +  NEW_LINE);
 				}
 				
 			}
@@ -330,6 +338,21 @@ public abstract class BeanToString {
 		
 		return sb;
 	}
+	
+	/* *******************************
+	 ********* Annotations ***********
+	 ****************************** */
+	
+	@Retention(RetentionPolicy.RUNTIME)
+	/**
+	 * ********************************
+	 * ** Annotation created to skip **
+	 * **** non desired properties **** 
+	 * ********************************
+	 * @author java
+	 */
+	public @interface NoString {}
+	
 	
 	/* *******************************
 	 ******* Private Constants *******
