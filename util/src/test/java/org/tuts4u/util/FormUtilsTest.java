@@ -1,5 +1,6 @@
 package org.tuts4u.util;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.tuts4u.web.FormUtils;
@@ -14,7 +15,7 @@ public class FormUtilsTest {
 		
 		// Then we emulate a request with all the parameters
 		mockReq.setParameter(TestForm.STRING, "test string");
-		
+
 		mockReq.setParameter(TestForm.BOOLEAN_P, "true");
 		mockReq.setParameter(TestForm.BOOLEAN_O, "true");
 		
@@ -66,6 +67,36 @@ public class FormUtilsTest {
 		
 		// finally we check the output
 		System.out.println(tb.toString());
+		
+		// Test cases
+		Assert.assertEquals(tb.getStringO(), "test string");
+		
+		Assert.assertTrue(tb.isBooleanP());
+		Assert.assertTrue(tb.getBooleanO());
+		
+		Assert.assertTrue(tb.getIntP() == 11);
+		Assert.assertTrue(tb.getIntO() == 12);
+		
+		Assert.assertTrue(tb.getLongP() == 21L);
+		Assert.assertTrue(tb.getLongO() == 22L);
+		
+		Assert.assertTrue(tb.getDoubleP() == 3.1);
+		Assert.assertTrue(tb.getDoubleO() == 3.2);
+		
+		Assert.assertTrue(tb.getFloatP() == 4.1F);
+		Assert.assertTrue(tb.getFloatO() == 4.2F);
+		
+		Assert.assertTrue(tb.getCharP() == 'a');
+		Assert.assertTrue(tb.getCharO() == 'b');
+		
+		Assert.assertEquals(tb.getListString(), ListUtils.getStringList(stringL));
+		Assert.assertEquals(tb.getListBoolean(), ListUtils.getBooleanList(booleanL));
+		Assert.assertEquals(tb.getListInteger(), ListUtils.getIntegerList(intL));
+		Assert.assertEquals(tb.getListLong(), ListUtils.getLongList(longL));
+		Assert.assertEquals(tb.getListDouble(), ListUtils.getDoubleList(doubleL));
+		Assert.assertEquals(tb.getListFloat(), ListUtils.getFloatList(floatL));
+		Assert.assertEquals(tb.getListChar(), ListUtils.getCharacterList(charL));
+		
 	}
 	
 }
