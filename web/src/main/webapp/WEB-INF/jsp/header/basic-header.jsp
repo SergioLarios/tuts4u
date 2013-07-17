@@ -39,5 +39,3 @@
 		<span class="clear"></span>
 	</section>
 
-	<section class="container">
-		<div class="content-wrapper">

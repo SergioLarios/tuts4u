@@ -1,6 +1,23 @@
-<%@ include file="../header/basic-header.jsp" %>
+<%@ include file="../header/basic-header.jsp"%>
 
-<h2>Hello World!</h2>
-<p>${text}</p>
+<section class="container">
 
-<%@ include file="../footer/basic-footer.jsp" %>
+	<div class="content-wrapper">
+	
+		<h1 class="home-h1"><spring:message code="home.main"/></h1>
+		
+		<div class="home-credentials" >
+			<div class="box">
+				<%@ include file="../include/login_include.jsp"%>
+			</div>
+			<div class="box">
+				<%@ include file="../include/registrer_include.jsp"%>
+			</div>
+			<div class="clear"></div>
+		</div>
+		
+	</div>
+	
+</section>
+
+<%@ include file="../footer/basic-footer.jsp"%>

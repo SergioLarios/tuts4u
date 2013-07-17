@@ -41,5 +41,12 @@
 	
 	<!-- Startup Bean -->
 	<bean init-method="start" class="org.tuts4u.startup.ServerStartup"/>
+
+	<!-- I18N -->
+	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+		<property name="basename">
+			<value>language</value>
+		</property>
+	</bean>
 	
 </beans>  
