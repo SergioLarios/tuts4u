@@ -5,6 +5,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.tuts4u.constant.Constants;
 import org.tuts4u.constant.Mappings;
+import org.tuts4u.form.CreateAccountForm;
+import org.tuts4u.form.LoginForm;
+import org.tuts4u.view.HomeView;
 import org.tuts4u.web.SpringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +23,12 @@ public class HomeController {
 	@RequestMapping(value = Mappings.HOME, method = RequestMethod.GET)  
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response) {
 		
-//		ApplicationContext  ctx = new FileSystemXmlApplicationContext("classpath:META-INF/application-context.xml");
+		HomeView view = new HomeView();
+		view.setLoginForm(new LoginForm());
+		view.setRegisterForm(new CreateAccountForm());
+		view.setHome(true);
 		
-		return SpringUtils.createMv(Constants.JSP_HOME, "text", new String("TESTTtTing!!!"));
+		return SpringUtils.createMv(Constants.JSP_HOME, Constants.VIEW, view);
 	}
 	
 	

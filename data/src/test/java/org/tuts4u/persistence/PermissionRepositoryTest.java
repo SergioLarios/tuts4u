@@ -1,6 +1,8 @@
 package org.tuts4u.persistence;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,14 +10,14 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 import org.tuts4u.model.Permission;
 import org.tuts4u.model.id.PermissionId;
 import org.tuts4u.parent.DatabaseConectionTest;
 import org.tuts4u.repository.PermissionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.orm.jpa.JpaSystemException;
 
-public class PermissionRepositoryTest extends DatabaseConectionTest{
+public class PermissionRepositoryTest extends DatabaseConectionTest {
 
 	Logger log = Logger.getLogger(PermissionRepositoryTest.class);
 	

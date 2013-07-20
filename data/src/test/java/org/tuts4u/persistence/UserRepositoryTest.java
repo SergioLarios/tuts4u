@@ -11,7 +11,7 @@ import org.tuts4u.parent.DatabaseConectionTest;
 import org.tuts4u.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-public class UserRepositoryTest extends DatabaseConectionTest{
+public class UserRepositoryTest extends DatabaseConectionTest {
 	
 	@Autowired
 	UserRepository userRepository;

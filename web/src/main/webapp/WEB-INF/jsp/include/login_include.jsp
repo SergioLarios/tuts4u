@@ -6,15 +6,28 @@
 
 	<form action="<%=Mappings.LOGIN%>" method="post">
 	
+		<%-- ----- Errors ----- --%>
+		<c:if test="${!view.home && !view.valid}">
+			<div class="form-errors">
+				<ul>
+					<c:forEach var="error" items="${view.errors}">
+						<li><spring:message code="${error}"/></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</c:if>
+	
 		<%-- ----- User Mail ----- --%>
 		<p>
-			<input type="text" name="<%=LoginForm.USER_MAIL%>" value="" 
+			<input type="text" name="<%=LoginForm.USER_MAIL%>" 
+				value="${view.loginForm.userMail}" 
 				placeholder="<spring:message code="login.placeholder.email"/>">
 		</p>
 		
 		<%-- ----- Password ----- --%>
 		<p>
-			<input type="password" name="<%=LoginForm.USER_PASSWORD%>" value="" 
+			<input type="password" name="<%=LoginForm.USER_PASSWORD%>" 
+				value="${view.loginForm.password}" 
 				placeholder="<spring:message code="login.placeholder.password"/>">
 		</p>
 		

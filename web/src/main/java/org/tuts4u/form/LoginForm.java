@@ -1,14 +1,18 @@
 package org.tuts4u.form;
 
-import org.tuts4u.util.AbstractForm;
+import org.tuts4u.util.BeanToString;
+import org.tuts4u.web.FormUtils.Param;
 
-public class LoginForm extends AbstractForm {
+public class LoginForm extends BeanToString {
 
 	/* *******************************
 	 ********* Form Fields ***********
 	 ****************************** */
 	
+	@Param(name = USER_MAIL)
 	private String userMail;
+	
+	@Param(name = USER_PASSWORD)
 	private String password;
 	
 	/* *******************************

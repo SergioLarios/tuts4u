@@ -8,9 +8,11 @@ import org.tuts4u.constant.Mappings;
 import org.tuts4u.form.CreateAccountForm;
 import org.tuts4u.form.LoginForm;
 import org.tuts4u.helper.CredentialsControllerHelper;
-import org.tuts4u.local.service.UserLocalService;
+import org.tuts4u.validator.CreateAccountFormValidator;
+import org.tuts4u.validator.LoginFormValidator;
 import org.tuts4u.view.CreateAccountView;
 import org.tuts4u.view.LoginView;
+import org.tuts4u.web.FormUtils;
 import org.tuts4u.web.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +29,7 @@ public class CredentialsController {
 	
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.GET)  
 	public ModelAndView viewLogin(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("GET");
+		
 		LoginView view = CredentialsControllerHelper.createLoginView(null, null, request);
 		
 		return SpringUtils.createMv(Constants.JSP_LOGIN, Constants.VIEW, view);
@@ -35,9 +37,9 @@ public class CredentialsController {
 	
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.POST)  
 	public ModelAndView processLogin(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("POST");
-		LoginForm form = CredentialsControllerHelper.processLoginForm(request, userLocalService);
-		LoginView view = CredentialsControllerHelper.createLoginView(form, userLocalService, request);
+
+		LoginForm loginForm = FormUtils.fillForm(request, LoginForm.class);
+		LoginView view = CredentialsControllerHelper.createLoginView(loginForm, loginFormValidator, request);
 		
 		return SpringUtils.createMv(Constants.JSP_LOGIN, Constants.VIEW, view);
 	}
@@ -49,7 +51,7 @@ public class CredentialsController {
 	@RequestMapping(value = Mappings.CREATE_ACCOUNT, method = RequestMethod.GET)  
 	public ModelAndView viewCreate(HttpServletRequest request, HttpServletResponse response) {
 		
-		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(null, null);
+		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(null, null,request);
 		
 		return SpringUtils.createMv(Constants.JSP_CREATE_ACCOUNT, Constants.VIEW, view);
 	}
@@ -57,8 +59,9 @@ public class CredentialsController {
 	@RequestMapping(value = Mappings.CREATE_ACCOUNT, method = RequestMethod.POST)  
 	public ModelAndView processCreate(HttpServletRequest request, HttpServletResponse response) {
 		
-		CreateAccountForm form = CredentialsControllerHelper.processCreateAccountForm(request);
-		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(form, userLocalService);
+		CreateAccountForm form = FormUtils.fillForm(request, CreateAccountForm.class);
+		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(
+				form, createAccountFormValidator,request);
 		
 		return SpringUtils.createMv(Constants.JSP_CREATE_ACCOUNT, Constants.VIEW, view);
 	}
@@ -69,6 +72,24 @@ public class CredentialsController {
 	 ****************************** */
 	
 	@Autowired
-	UserLocalService userLocalService;
+	private CreateAccountFormValidator createAccountFormValidator;
+	
+	@Autowired
+	private LoginFormValidator loginFormValidator;
+
+	
+	/* *******************************
+	 ****** Setters & Getters ********
+	 ******************************* */
+	
+	public CreateAccountFormValidator getCreateAccountFormValidator() { return createAccountFormValidator; }
+	public void setCreateAccountFormValidator(CreateAccountFormValidator createAccountFormValidator) { 
+		this.createAccountFormValidator = createAccountFormValidator;
+	}
+
+	public LoginFormValidator getLoginFormValidator() { return loginFormValidator; }
+	public void setLoginFormValidator(LoginFormValidator loginFormValidator) {
+		this.loginFormValidator = loginFormValidator;
+	}
 	
 }

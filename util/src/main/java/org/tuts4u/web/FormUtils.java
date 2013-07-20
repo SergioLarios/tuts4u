@@ -32,7 +32,7 @@ public class FormUtils {
 			
 			for (Field field : fields) {
 				
-				ParamName pn = field.getAnnotation(ParamName.class);
+				Param pn = field.getAnnotation(Param.class);
 				if (pn != null) {
 					
 					String paramName = pn.name();
@@ -176,7 +176,7 @@ public class FormUtils {
 	 ****************************** */
 	
 	@Retention(RetentionPolicy.RUNTIME)
-	public static @interface ParamName { public String name();	}
+	public static @interface Param { public String name();	}
 	
 	/* *******************************
 	 ********** Interfaces ***********

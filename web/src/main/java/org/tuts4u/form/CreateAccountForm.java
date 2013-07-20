@@ -1,15 +1,21 @@
 package org.tuts4u.form;
 
-import org.tuts4u.util.AbstractForm;
+import org.tuts4u.util.BeanToString;
+import org.tuts4u.web.FormUtils.Param;
 
-public class CreateAccountForm extends AbstractForm {
+public class CreateAccountForm extends BeanToString {
 	
 	/* *******************************
 	 ********* Form Fields ***********
 	 ****************************** */
 	
+	@Param(name = USER_MAIL)
 	private String userMail;
+	
+	@Param(name = USER_PASSWORD)
 	private String password;
+	
+	@Param(name = USER_PASSWORD_REPEAT)
 	private String passwordRepeat;
 	
 	/* *******************************
@@ -33,17 +39,4 @@ public class CreateAccountForm extends AbstractForm {
 	public String getPasswordRepeat() { return passwordRepeat; }
 	public void setPasswordRepeat(String passwordRepeat) { this.passwordRepeat = passwordRepeat; }
 	
-	/* *******************************
-	 ************ toString() *********
-	 ******************************* */
-
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		
-		sb.append("\n__________LoginForm__________\n");
-		sb.append("userMail: " + userMail + "\n");
-		
-		return sb.toString();
-	}
 }

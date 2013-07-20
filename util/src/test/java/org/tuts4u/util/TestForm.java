@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.joda.time.DateTime;
 import org.tuts4u.web.FormUtils.AutomaticFillingForm;
-import org.tuts4u.web.FormUtils.ParamName;
+import org.tuts4u.web.FormUtils.Param;
 import org.tuts4u.web.ParamUtil;
 
 public class TestForm extends BeanToString implements AutomaticFillingForm {
@@ -16,64 +16,64 @@ public class TestForm extends BeanToString implements AutomaticFillingForm {
 	 ********* Form Fields ***********
 	 ****************************** */
 	
-	@ParamName(name = STRING)
+	@Param(name = STRING)
 	private String stringO;
 	
-	@ParamName(name = BOOLEAN_P)
+	@Param(name = BOOLEAN_P)
 	private boolean booleanP;
 	
-	@ParamName(name = BOOLEAN_O)
+	@Param(name = BOOLEAN_O)
 	private Boolean booleanO;
 	
-	@ParamName(name = INT_P)
+	@Param(name = INT_P)
 	private int intP;
 	
-	@ParamName(name = INT_O)
+	@Param(name = INT_O)
 	private Integer intO;
 	
-	@ParamName(name = LONG_P)
+	@Param(name = LONG_P)
 	private long longP;
 	
-	@ParamName(name = LONG_O)
+	@Param(name = LONG_O)
 	private Long longO;
 
-	@ParamName(name = DOUBLE_P)
+	@Param(name = DOUBLE_P)
 	private double doubleP;
 	
-	@ParamName(name = DOUBLE_O)
+	@Param(name = DOUBLE_O)
 	private Double doubleO;
 	
-	@ParamName(name = FLOAT_P)
+	@Param(name = FLOAT_P)
 	private float floatP;
 	
-	@ParamName(name = FLOAT_O)
+	@Param(name = FLOAT_O)
 	private Float floatO;
 	
-	@ParamName(name = CHAR_P)
+	@Param(name = CHAR_P)
 	private char charP;
 	
-	@ParamName(name = CHAR_O)
+	@Param(name = CHAR_O)
 	private Character charO;
 
-	@ParamName(name = LIST_STRING)
+	@Param(name = LIST_STRING)
 	private List<String> listString;
 	
-	@ParamName(name = LIST_BOOLEAN)
+	@Param(name = LIST_BOOLEAN)
 	private List<Boolean> listBoolean;
 	
-	@ParamName(name = LIST_INT)
+	@Param(name = LIST_INT)
 	private List<Integer> listInteger;
 	
-	@ParamName(name = LIST_LONG)
+	@Param(name = LIST_LONG)
 	private List<Long> listLong;
 	
-	@ParamName(name = LIST_DOUBLE)
+	@Param(name = LIST_DOUBLE)
 	private List<Double> listDouble;
 	
-	@ParamName(name = LIST_FLOAT)
+	@Param(name = LIST_FLOAT)
 	private List<Float> listFloat;
 	
-	@ParamName(name = LIST_CHAR)
+	@Param(name = LIST_CHAR)
 	private List<Character> listChar;
 	
 	private Date date;

@@ -981,6 +981,15 @@ public class Validator {
 	}
 	
 	/**
+	 * Returns <code>true</code> if the string is null or blank spaces
+	 * @param s
+	 * @return
+	 */
+	public static boolean isBlank(String s) {
+		return StringUtils.isBlank(s);
+	}
+	
+	/**
 	 * Returns a string consisting of all of the digits extracted from the
 	 * string.
 	 *
