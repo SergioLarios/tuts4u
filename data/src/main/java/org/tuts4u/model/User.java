@@ -7,9 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.tuts4u.util.BeanToString;
+
 @Entity
 @Table(name = "USER_")
-public class User {
+public class User extends BeanToString {
 
 	/* *******************************
 	 ******** Table Fields ***********
@@ -29,8 +31,8 @@ public class User {
 	@Column(name = "USER_PSSW", length = 60)
 	private String password;
 
-	@Column(name = "IS_ADMIN")
-	private boolean admin;
+	@Column(name = "TYPE")
+	private int type;
 	
 	/* *******************************
 	 ****** Setters & Getters ********
@@ -48,7 +50,7 @@ public class User {
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
 	
-	public boolean isAdmin() { return admin; }
-	public void setAdmin(boolean admin) { this.admin = admin; }
+	public int getType() { return type; }
+	public void setType(int type) { this.type = type; }
 	
 }

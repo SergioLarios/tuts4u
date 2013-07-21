@@ -2,12 +2,16 @@ package org.tuts4u.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.tuts4u.constant.Constants;
 import org.tuts4u.constant.Mappings;
+import org.tuts4u.constant.UserConstants;
 import org.tuts4u.form.CreateAccountForm;
 import org.tuts4u.form.LoginForm;
 import org.tuts4u.helper.CredentialsControllerHelper;
+import org.tuts4u.local.service.UserLocalService;
+import org.tuts4u.model.User;
 import org.tuts4u.validator.CreateAccountFormValidator;
 import org.tuts4u.validator.LoginFormValidator;
 import org.tuts4u.view.CreateAccountView;
@@ -30,7 +34,7 @@ public class CredentialsController {
 	@RequestMapping(value = Mappings.LOGIN, method = RequestMethod.GET)  
 	public ModelAndView viewLogin(HttpServletRequest request, HttpServletResponse response) {
 		
-		LoginView view = CredentialsControllerHelper.createLoginView(null, null, request);
+		LoginView view = CredentialsControllerHelper.createLoginView(null, null, request, null);
 		
 		return SpringUtils.createMv(Constants.JSP_LOGIN, Constants.VIEW, view);
 	}
@@ -39,7 +43,8 @@ public class CredentialsController {
 	public ModelAndView processLogin(HttpServletRequest request, HttpServletResponse response) {
 
 		LoginForm loginForm = FormUtils.fillForm(request, LoginForm.class);
-		LoginView view = CredentialsControllerHelper.createLoginView(loginForm, loginFormValidator, request);
+		LoginView view = CredentialsControllerHelper.createLoginView(
+				loginForm, loginFormValidator, request, userLocalService);
 		
 		return SpringUtils.createMv(Constants.JSP_LOGIN, Constants.VIEW, view);
 	}
@@ -51,7 +56,8 @@ public class CredentialsController {
 	@RequestMapping(value = Mappings.CREATE_ACCOUNT, method = RequestMethod.GET)  
 	public ModelAndView viewCreate(HttpServletRequest request, HttpServletResponse response) {
 		
-		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(null, null,request);
+		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(
+				null, null, request, null);
 		
 		return SpringUtils.createMv(Constants.JSP_CREATE_ACCOUNT, Constants.VIEW, view);
 	}
@@ -61,11 +67,31 @@ public class CredentialsController {
 		
 		CreateAccountForm form = FormUtils.fillForm(request, CreateAccountForm.class);
 		CreateAccountView view = CredentialsControllerHelper.createCreateAccountView(
-				form, createAccountFormValidator,request);
+				form, createAccountFormValidator,request, userLocalService);
 		
 		return SpringUtils.createMv(Constants.JSP_CREATE_ACCOUNT, Constants.VIEW, view);
 	}
 	
+	/* *******************************************************
+	 * ****************** Logout : /logout *****************
+	 * *******************************************************/
+	
+	@RequestMapping(value = Mappings.LOGOUT)  
+	public ModelAndView processLogout(HttpServletRequest request, HttpServletResponse response) {
+		
+		System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+		
+		HttpSession session = request.getSession();
+		User user = new User();
+		user.setType(UserConstants.GUEST);
+		session.setAttribute(Constants.SESSION_USER, user);
+		
+		System.out.println(user);
+		
+		SpringUtils.sendRedirect(response, Mappings.HOME);
+		
+		return new ModelAndView();
+	}
 	
 	/* *******************************
 	 ******* Injected objects ********
@@ -77,6 +103,8 @@ public class CredentialsController {
 	@Autowired
 	private LoginFormValidator loginFormValidator;
 
+	@Autowired
+	private UserLocalService userLocalService;
 	
 	/* *******************************
 	 ****** Setters & Getters ********
@@ -90,6 +118,11 @@ public class CredentialsController {
 	public LoginFormValidator getLoginFormValidator() { return loginFormValidator; }
 	public void setLoginFormValidator(LoginFormValidator loginFormValidator) {
 		this.loginFormValidator = loginFormValidator;
+	}
+
+	public UserLocalService getUserLocalService() { return userLocalService; }
+	public void setUserLocalService(UserLocalService userLocalService) {
+		this.userLocalService = userLocalService;
 	}
 	
 }

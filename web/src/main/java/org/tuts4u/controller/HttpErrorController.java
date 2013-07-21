@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.tuts4u.constant.Constants;
 import org.tuts4u.constant.Mappings;
+import org.tuts4u.view.HttpErrorView;
 import org.tuts4u.web.SpringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +21,9 @@ public class HttpErrorController {
 	@RequestMapping(value = Mappings.HTTP_404, method = RequestMethod.GET)  
 	public ModelAndView handle404(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpErrorView view = new HttpErrorView();
 		
-		
-		return SpringUtils.createMv(Constants.JSP_404, "text", new String("TESTTtTing!!!"));
+		return SpringUtils.createMv(Constants.JSP_404, Constants.VIEW, view);
 	}
 	
 	/* *******************************************************
@@ -31,9 +32,9 @@ public class HttpErrorController {
 	@RequestMapping(value = Mappings.HTTP_403, method = RequestMethod.GET)  
 	public ModelAndView handle403(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpErrorView view = new HttpErrorView();
 		
-		
-		return SpringUtils.createMv(Constants.JSP_403, "text", new String("TESTTtTing!!!"));
+		return SpringUtils.createMv(Constants.JSP_403, Constants.VIEW, view);
 	}
 	
 }

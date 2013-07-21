@@ -50,8 +50,18 @@ input {
 .form-errors {
 	margin: 10px;
 	padding: 10px;
-	border: 2px solid red;
-	background-color: #ff9393;
+	border: 2px solid #ff9393;
+	background-color: #f3cdcd;
+	box-shadow: 0 0 3px #AAAAAA;
+	
+}
+
+.form-success {
+	margin: 10px;
+	padding: 10px;
+	border: 2px solid #8bcd81;
+	background-color: #cdf6c6;
+	box-shadow: 0 0 3px #AAAAAA;
 }
 
 /* ****** Header menu ****** */
@@ -69,6 +79,12 @@ input {
 .header-nav {
 	float: left;
 	margin: 15px 0 0 20px;
+}
+
+.user-box {
+	float: left;
+	width: 100px;
+	padding: 25px;
 }
 
 /* ****** Home ****** */

@@ -3,9 +3,8 @@ package org.tuts4u.view;
 import java.util.List;
 
 import org.tuts4u.form.CreateAccountForm;
-import org.tuts4u.util.BeanToString;
 
-public class CreateAccountView extends BeanToString {
+public class CreateAccountView extends AbstractView {
 
 	/* *******************************
 	 ********* View fields ***********
@@ -15,6 +14,7 @@ public class CreateAccountView extends BeanToString {
 	private List<String> errors;
 	private boolean valid;
 	private boolean home;
+	private boolean loggedIn;
 	
 	/* *******************************
 	 ****** Setters & Getters ********
@@ -31,5 +31,8 @@ public class CreateAccountView extends BeanToString {
 	
 	public boolean isHome() { return home; }
 	public void setHome(boolean home) { this.home = home; }
+	
+	public boolean isLoggedIn() { return loggedIn; }
+	public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
 	
 }

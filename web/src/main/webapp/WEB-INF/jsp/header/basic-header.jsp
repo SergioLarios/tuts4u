@@ -9,7 +9,7 @@
 	<script type="text/javascript" src="/resource/js/main.js"></script>
 	
 	<%-- Title --%>
-	<title>Insert title here</title>
+	<title>${view.title}</title>
 	
 </head>
 <body>
@@ -18,7 +18,7 @@
 	
 		<%-- Logo --%>
 		<div class="header-logo">
-			<img alt="logo" src="/resource/img/header/Logo_Tuts4u.png" />
+			<a href="/"><img alt="logo" src="/resource/img/header/Logo_Tuts4u.png" /></a>
 		</div>
 	
 		<%-- Navigation --%>
@@ -30,6 +30,16 @@
 				<li><a href="index.html" title="About">About</a></li>
 			</ul>
 		</nav>
+		
+		<%-- User box --%>
+		<div class="user-box">
+			<c:if test="${sessionScope.user.type == 0}">
+				<spring:message code="header.user-guest"/>
+			</c:if>
+			<c:if test="${sessionScope.user.type != 0}">
+				<spring:message code="header.user-logged" arguments="${sessionScope.user.userName}"/>
+			</c:if>
+		</div>		
 		
 		<%-- Search Box --%>
 		<form action="index.html" method="post" class="search">

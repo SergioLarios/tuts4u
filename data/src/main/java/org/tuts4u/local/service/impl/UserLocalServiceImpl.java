@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.tuts4u.local.service.UserLocalService;
 import org.tuts4u.model.User;
 import org.tuts4u.repository.UserRepository;
+import org.tuts4u.util.Validator;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -50,10 +51,14 @@ public class UserLocalServiceImpl implements UserLocalService {
 	public boolean checkPssw(String userMail, String pssw) {
 		try {
 			User user = userRepository.findByMail(userMail);
-			return BCrypt.checkpw(pssw, user.getPassword());
+			if (Validator.isNotNull(user)) {
+				return BCrypt.checkpw(pssw, user.getPassword());
+			}
+			else {
+				return false;
+			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("Error on -checkPssw(String userMail, String pssw)- ", e);
 			return false;
 		}
@@ -63,7 +68,7 @@ public class UserLocalServiceImpl implements UserLocalService {
 		boolean exists = true;
 		try {
 			User user = userRepository.findByMail(userMail);
-			if (user == null) {
+			if (Validator.isNull(user)) {
 				exists = false;
 			}
 		} catch (Exception e) {

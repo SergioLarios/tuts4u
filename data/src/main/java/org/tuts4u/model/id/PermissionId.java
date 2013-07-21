@@ -2,7 +2,9 @@ package org.tuts4u.model.id;
 
 import java.io.Serializable;
 
-public class PermissionId implements Serializable{
+import org.tuts4u.util.BeanToString;
+
+public class PermissionId extends BeanToString implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

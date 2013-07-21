@@ -3,7 +3,7 @@ package org.tuts4u.view;
 import org.tuts4u.form.CreateAccountForm;
 import org.tuts4u.form.LoginForm;
 
-public class HomeView {
+public class HomeView  extends AbstractView {
 
 	/* *******************************
 	 ********* View fields ***********
@@ -12,6 +12,7 @@ public class HomeView {
 	private CreateAccountForm registerForm;
 	private LoginForm loginForm;
 	private boolean home;
+	private boolean loggedIn;
 	
 	/* *******************************
 	 ****** Setters & Getters ********
@@ -25,5 +26,8 @@ public class HomeView {
 	
 	public boolean isHome() { return home; }
 	public void setHome(boolean home) { this.home = home; }
+	
+	public boolean isLoggedIn() { return loggedIn; }
+	public void setLoggedIn(boolean loggedIn) { this.loggedIn = loggedIn; }
 	
 }

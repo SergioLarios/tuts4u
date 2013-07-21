@@ -13,7 +13,7 @@ public class Constants {
 	public static final String JSP_CREATE_ACCOUNT = "credential/create-account";
 	
 	// Session Keys
-	public static final String SESSION_USER = "org.tuts4u.session.user";
+	public static final String SESSION_USER = "user";
 	
 	// More constants
 	public static final String LOCATION = "Location";

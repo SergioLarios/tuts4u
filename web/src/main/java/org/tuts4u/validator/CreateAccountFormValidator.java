@@ -31,6 +31,10 @@ public class CreateAccountFormValidator extends AbstractFormValidator{
 			addError("caf.pssw.not-equal");
 		}
 		
+		if (isValid() && userLocalService.existsUserMail(caForm.getUserMail())) {
+			addError("caf.user.exists");
+		}
+		
 	}
 
 	/* *******************************

@@ -1,9 +1,14 @@
 package org.tuts4u.helper;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.tuts4u.constant.Constants;
+import org.tuts4u.constant.UserConstants;
 import org.tuts4u.form.CreateAccountForm;
 import org.tuts4u.form.LoginForm;
+import org.tuts4u.local.service.UserLocalService;
+import org.tuts4u.model.User;
 import org.tuts4u.util.Validator;
 import org.tuts4u.validator.CreateAccountFormValidator;
 import org.tuts4u.validator.LoginFormValidator;
@@ -21,7 +26,7 @@ public class CredentialsControllerHelper {
 	 * ### Create account ###
 	 */
 	public static CreateAccountView createCreateAccountView(CreateAccountForm form, CreateAccountFormValidator validator,
-			HttpServletRequest request) {
+			HttpServletRequest request, UserLocalService userLocalService) {
 		
 		CreateAccountView view = new CreateAccountView();
 		
@@ -36,8 +41,27 @@ public class CredentialsControllerHelper {
 			validator.clean();
 			validator.validate(form, request);
 			
-			view.setValid(validator.isValid());
-			view.setErrors(validator.getErrors());
+			if (validator.isValid()) {
+				
+				User user = new User();
+				user.setType(UserConstants.NORMAL);
+				user.setUserName(form.getUserMail());
+				user.setMail(form.getUserMail());
+				
+				userLocalService.updatePassword(user, form.getPassword());
+				
+				HttpSession session = request.getSession();
+				User sUser = userLocalService.loginUser(user.getMail());
+				session.setAttribute(Constants.SESSION_USER, sUser);
+				
+				view.setLoggedIn(true);
+				
+			}
+			else {
+				view.setValid(validator.isValid());
+				view.setErrors(validator.getErrors());
+			}
+			
 		}
 		
 		return view;
@@ -46,7 +70,9 @@ public class CredentialsControllerHelper {
 	/**
 	 * ### Login ###
 	 */
-	public static LoginView createLoginView(LoginForm form, LoginFormValidator validator, HttpServletRequest request) {
+	public static LoginView createLoginView(LoginForm form, LoginFormValidator validator, 
+			HttpServletRequest request, UserLocalService userLocalService) {
+		
 		LoginView view = new LoginView();
 		
 		if (Validator.isNull(form)) {
@@ -60,8 +86,20 @@ public class CredentialsControllerHelper {
 			validator.clean();
 			validator.validate(form, request);
 			
-			view.setValid(validator.isValid());
-			view.setErrors(validator.getErrors());
+			if (validator.isValid()) {
+				
+				HttpSession session = request.getSession();
+				User sUser = userLocalService.loginUser(form.getUserMail());
+				session.setAttribute(Constants.SESSION_USER, sUser);
+				
+				view.setLoggedIn(true);
+				
+			}
+			else {
+				view.setValid(validator.isValid());
+				view.setErrors(validator.getErrors());
+			}
+			
 		}
 		
 		return view;

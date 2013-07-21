@@ -11,11 +11,12 @@ import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import org.tuts4u.model.id.PermissionId;
+import org.tuts4u.util.BeanToString;
 
 @Entity
 @Table(name = "PERMISSION")
 @IdClass(PermissionId.class)
-public class Permission {
+public class Permission extends BeanToString  {
 
 	/* *******************************
 	 ******** Table Fields ***********

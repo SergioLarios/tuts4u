@@ -6,15 +6,19 @@
 	
 		<h1 class="home-h1"><spring:message code="home.main"/></h1>
 		
-		<div class="home-credentials" >
-			<div class="box">
-				<%@ include file="../include/login_include.jsp"%>
+		<c:if test="${!view.loggedIn}">
+		
+			<div class="home-credentials" >
+				<div class="box">
+					<%@ include file="../include/login_include.jsp"%>
+				</div>
+				<div class="box">
+					<%@ include file="../include/registrer_include.jsp"%>
+				</div>
+				<div class="clear"></div>
 			</div>
-			<div class="box">
-				<%@ include file="../include/registrer_include.jsp"%>
-			</div>
-			<div class="clear"></div>
-		</div>
+			
+		</c:if>
 		
 	</div>
 	

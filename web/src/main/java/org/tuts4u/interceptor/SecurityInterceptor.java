@@ -10,6 +10,7 @@ import org.tuts4u.constant.Constants;
 import org.tuts4u.constant.Mappings;
 import org.tuts4u.constant.PermissionConstants;
 import org.tuts4u.constant.StringPool;
+import org.tuts4u.constant.UserConstants;
 import org.tuts4u.local.service.PermissionLocalService;
 import org.tuts4u.model.Permission;
 import org.tuts4u.model.User;
@@ -19,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-public class SecurityInterceptor implements HandlerInterceptor{
+public class SecurityInterceptor implements HandlerInterceptor {
 
 	/* *******************************************************
 	 * ********************** Pre Handle *********************
@@ -36,7 +37,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 			List<Permission> mappingPermissions = permissionLocalService.findByType(PermissionConstants.TYPE_MAPPING);
 			
 			for (Permission permission : mappingPermissions) {
-				System.out.println(permission);
+
 				// If the patter matches and it's not public we'll have to check the security
 				if (checkPattern(requestUri, permission) && !permission.isPublic()) {
 					
@@ -44,7 +45,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 					
 					User user = (User) session.getAttribute(Constants.SESSION_USER);
 					
-					if (Validator.isNotNull(user) && !user.isAdmin()) {
+					if (Validator.isNotNull(user) && !(user.getType() == UserConstants.ADMIN)) {
 						
 						List<Long> usersAllowed = permission.getUserIdList();
 						
@@ -57,6 +58,7 @@ public class SecurityInterceptor implements HandlerInterceptor{
 						return false;
 					}
 					else if (Validator.isNull(user)) {
+						SpringUtils.sendError(response);
 						return false;
 					}
 
@@ -97,9 +99,6 @@ public class SecurityInterceptor implements HandlerInterceptor{
 		pattern = pattern.replace(StringPool.STAR, StringPool.PERIOD + StringPool.STAR);
 		if (!pattern.endsWith(StringPool.STAR)) { pattern = pattern + StringPool.STAR; }
 		
-//		System.out.println("\n*****************\n" + requestUri + "\n"  + pattern +
-//		"\n" + requestUri.matches(pattern) +"\n*****************\n");
-		
 		return requestUri.matches(pattern);
 	}
 	
@@ -108,6 +107,15 @@ public class SecurityInterceptor implements HandlerInterceptor{
 	 ****************************** */
 	
 	@Autowired
-	PermissionLocalService permissionLocalService;
+	private PermissionLocalService permissionLocalService;
+
+	/* *******************************
+	 ****** Getters and Setters ******
+	 ****************************** */
+
+	public PermissionLocalService getPermissionLocalService() { return permissionLocalService; }
+	public void setPermissionLocalService( PermissionLocalService permissionLocalService) {
+		this.permissionLocalService = permissionLocalService;
+	}
 	
 }

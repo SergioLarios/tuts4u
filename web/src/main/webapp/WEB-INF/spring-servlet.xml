@@ -26,6 +26,12 @@
         	<bean class="org.tuts4u.interceptor.SecurityInterceptor" />
 		</mvc:interceptor>
 		
+		<!-- User interceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+        	<bean class="org.tuts4u.interceptor.UserInterceptor" />
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
 
 	<!-- Annotation handlers -->

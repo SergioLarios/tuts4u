@@ -6,42 +6,54 @@
 
 	<form action="<%=Mappings.CREATE_ACCOUNT%>" method="post">
 	
-		<%-- ----- Errors ----- --%>
-		<c:if test="${!view.home && !view.valid}">
-			<div class="form-errors">
-				<ul>
-					<c:forEach var="error" items="${view.errors}">
-						<li><spring:message code="${error}"/></li>
-					</c:forEach>
-				</ul>
+		<c:if test="${!view.home && view.loggedIn}">
+		
+			<div class="form-success">
+				<spring:message code="register.success"/>
 			</div>
+			
 		</c:if>
-	
-		<%-- ----- User Mail ----- --%>
-		<p>
-			<input type="text" name="<%=CreateAccountForm.USER_MAIL%>"
-				value="${view.registerForm.userMail}"
-				placeholder="<spring:message code="login.placeholder.email"/>">
-		</p>
 		
-		<%-- ----- Password ----- --%>
-		<p>
-			<input type="password" name="<%=CreateAccountForm.USER_PASSWORD%>" 
-				value="${view.registerForm.password}" 
-				placeholder="<spring:message code="login.placeholder.password"/>">
-		</p>
+		<c:if test="${!view.loggedIn}">
 		
-		<%-- ----- Password ----- --%>
-		<p>
-			<input type="password" name="<%=CreateAccountForm.USER_PASSWORD_REPEAT%>" 
-				value="${view.registerForm.passwordRepeat}" 
-				placeholder="<spring:message code="register.placeholder.repeat-password"/>">
-		</p>
+			<%-- ----- Errors ----- --%>
+			<c:if test="${!view.home && !view.valid}">
+				<div class="form-errors">
+					<ul>
+						<c:forEach var="error" items="${view.errors}">
+							<li><spring:message code="${error}"/></li>
+						</c:forEach>
+					</ul>
+				</div>
+			</c:if>
 		
-		<%-- ----- Submit ----- --%>
-		<p class="submit">
-			<input type="submit" name="commit" value="<spring:message code="register.submit"/>">
-		</p>
+			<%-- ----- User Mail ----- --%>
+			<p>
+				<input type="text" name="<%=CreateAccountForm.USER_MAIL%>"
+					value="${view.registerForm.userMail}"
+					placeholder="<spring:message code="login.placeholder.email"/>">
+			</p>
+			
+			<%-- ----- Password ----- --%>
+			<p>
+				<input type="password" name="<%=CreateAccountForm.USER_PASSWORD%>" 
+					value="${view.registerForm.password}" 
+					placeholder="<spring:message code="login.placeholder.password"/>">
+			</p>
+			
+			<%-- ----- Password ----- --%>
+			<p>
+				<input type="password" name="<%=CreateAccountForm.USER_PASSWORD_REPEAT%>" 
+					value="${view.registerForm.passwordRepeat}" 
+					placeholder="<spring:message code="register.placeholder.repeat-password"/>">
+			</p>
+			
+			<%-- ----- Submit ----- --%>
+			<p class="submit">
+				<input type="submit" name="commit" value="<spring:message code="register.submit"/>">
+			</p>
+		
+		</c:if>
 		
 	</form>
 
