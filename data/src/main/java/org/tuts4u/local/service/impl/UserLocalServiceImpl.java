@@ -38,6 +38,10 @@ public class UserLocalServiceImpl implements UserLocalService {
 		return IteratorUtils.toList(userRepository.findAll().iterator());
 	}
 	
+	public User findByUserNameSimple(String userNameSimple) {
+		return userRepository.findByUserNameSimple(userNameSimple);
+	}
+	
 	public User update(User user) {
 		return userRepository.save(user);
 	}
@@ -62,6 +66,23 @@ public class UserLocalServiceImpl implements UserLocalService {
 			log.error("Error on -checkPssw(String userMail, String pssw)- ", e);
 			return false;
 		}
+	}
+
+	public boolean existsUserNameSimple(String userNameSimple) {
+		boolean exists = true;
+		
+		try {
+			
+			User user = userRepository.findByUserNameSimple(userNameSimple);
+			if (Validator.isNull(user)) {
+				return false;
+			}
+			
+		} catch (Exception e) {
+			log.error("Error on -existsUserNameSimple(String userNameSimple)- ", e);
+		}
+		
+		return exists;
 	}
 	
 	public boolean existsUserMail(String userMail) {

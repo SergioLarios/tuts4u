@@ -25,6 +25,9 @@ public class User extends BeanToString {
 	@Column(name = "USER_NAME", length = 32, unique = true)
 	private String userName;
 	
+	@Column(name = "USER_NAME_SIMPLE", length = 32, unique = true)
+	private String userNameSimple;
+	
 	@Column(name = "USER_MAIL", length = 64, unique = true)
 	private String mail;
 
@@ -44,6 +47,9 @@ public class User extends BeanToString {
 	public String getUserName() { return userName; }
 	public void setUserName(String userName) { this.userName = userName; }
 
+	public String getUserNameSimple() { return userNameSimple; }
+	public void setUserNameSimple(String userNameSimple) { this.userNameSimple = userNameSimple; }
+	
 	public String getMail() { return mail; }
 	public void setMail(String mail) { this.mail = mail; }
 	

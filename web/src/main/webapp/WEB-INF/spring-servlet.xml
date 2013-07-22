@@ -32,6 +32,12 @@
         	<bean class="org.tuts4u.interceptor.UserInterceptor" />
 		</mvc:interceptor>
 		
+		<!-- Page Interceptor -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+        	<bean class="org.tuts4u.interceptor.PageInterceptor" />
+		</mvc:interceptor>
+		
 	</mvc:interceptors>
 
 	<!-- Annotation handlers -->

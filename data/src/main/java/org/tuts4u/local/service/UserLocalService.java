@@ -33,6 +33,12 @@ public interface UserLocalService {
 	public List<User> findAll();
 	
 	/**
+	 * Returns a User given its simple name
+	 * @return
+	 */
+	public User findByUserNameSimple(String userNameSimple);
+	
+	/**
 	 * Updates or creates the user given the object
 	 * @param user
 	 * @return
@@ -61,6 +67,13 @@ public interface UserLocalService {
 	 * @return
 	 */
 	public boolean existsUserMail(String userMail);
+	
+	/**
+	 * Checks if the user name simple already exists (returns true if there is an error)
+	 * @param userMail
+	 * @return
+	 */
+	public boolean existsUserNameSimple(String userNameSimple);
 	
 	/**
 	 * Returns the Object User given it's mail.

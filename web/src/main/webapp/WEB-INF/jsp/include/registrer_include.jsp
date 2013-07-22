@@ -34,6 +34,13 @@
 					placeholder="<spring:message code="login.placeholder.email"/>">
 			</p>
 			
+			<%-- ----- User name ----- --%>
+			<p>
+				<input type="text" name="<%=CreateAccountForm.USER_NAME%>"
+					value="${view.registerForm.userName}"
+					placeholder="<spring:message code="register.placeholder.name"/>">
+			</p>
+			
 			<%-- ----- Password ----- --%>
 			<p>
 				<input type="password" name="<%=CreateAccountForm.USER_PASSWORD%>" 

@@ -2,8 +2,10 @@ package org.tuts4u.constant;
 
 public class Mappings {
 
-	// Home
+	// Menu
 	public static final String HOME = "/";
+	public static final String EXPLORE = "/explore";
+	public static final String HOW_TO = "/how-to";
 	
 	// HTTP Errors
 	public static final String HTTP_404 = "/errors/404";
@@ -15,9 +17,15 @@ public class Mappings {
 	// Control panel
 	public static final String CONTROL_PANEL = "/control-panel";
 	
-	// User actions
+	// User credentials
 	public static final String LOGIN = "/login";
 	public static final String LOGOUT = "/log-out";
 	public static final String CREATE_ACCOUNT = "/create-account";
+	
+	// User
+	public static final String USER = "/user";
+	public static final String USER_HOME = USER +"/{userName}";
+	
+	
 }
  

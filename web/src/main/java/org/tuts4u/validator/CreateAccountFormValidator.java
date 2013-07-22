@@ -10,6 +10,7 @@ import org.tuts4u.form.CreateAccountForm;
 import org.tuts4u.local.service.UserLocalService;
 import org.tuts4u.util.AbstractFormValidator;
 import org.tuts4u.util.Validator;
+import org.tuts4u.web.UrlUtils;
 
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
@@ -23,6 +24,10 @@ public class CreateAccountFormValidator extends AbstractFormValidator{
 			addError("caf.mail.null");
 		}
 		
+		if (Validator.isBlank(caForm.getUserName())) {
+			addError("caf.name.null");
+		}
+		
 		if (Validator.isBlank(caForm.getPassword()) || Validator.isBlank(caForm.getPasswordRepeat())) {
 			addError("caf.pssw.blank");
 		}
@@ -32,6 +37,11 @@ public class CreateAccountFormValidator extends AbstractFormValidator{
 		}
 		
 		if (isValid() && userLocalService.existsUserMail(caForm.getUserMail())) {
+			addError("caf.user.exists");
+		}
+		
+		String userNameS = UrlUtils.simplifyStringToUrl(caForm.getUserName());
+		if (isValid() && userLocalService.existsUserNameSimple(userNameS)) {
 			addError("caf.user.exists");
 		}
 		

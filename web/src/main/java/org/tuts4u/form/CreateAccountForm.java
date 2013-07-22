@@ -12,6 +12,9 @@ public class CreateAccountForm extends BeanToString {
 	@Param(name = USER_MAIL)
 	private String userMail;
 	
+	@Param(name = USER_NAME)
+	private String userName;
+	
 	@Param(name = USER_PASSWORD)
 	private String password;
 	
@@ -23,6 +26,7 @@ public class CreateAccountForm extends BeanToString {
 	 ****************************** */
 	
 	public static final String USER_MAIL = "create-account.usermail";
+	public static final String USER_NAME = "create-account.name";
 	public static final String USER_PASSWORD = "create-account.password";
 	public static final String USER_PASSWORD_REPEAT = "create-account.password-repeat";
 	
@@ -33,6 +37,9 @@ public class CreateAccountForm extends BeanToString {
 	public String getUserMail() { return userMail; }
 	public void setUserMail(String userMail) { this.userMail = userMail; }
 
+	public String getUserName() { return userName; }
+	public void setUserName(String userName) { this.userName = userName; }
+	
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
 	

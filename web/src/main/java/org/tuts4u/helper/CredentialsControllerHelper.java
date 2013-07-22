@@ -14,6 +14,7 @@ import org.tuts4u.validator.CreateAccountFormValidator;
 import org.tuts4u.validator.LoginFormValidator;
 import org.tuts4u.view.CreateAccountView;
 import org.tuts4u.view.LoginView;
+import org.tuts4u.web.UrlUtils;
 
 public class CredentialsControllerHelper {
 
@@ -43,9 +44,12 @@ public class CredentialsControllerHelper {
 			
 			if (validator.isValid()) {
 				
+				String userNameS = UrlUtils.simplifyStringToUrl(form.getUserName());
+				
 				User user = new User();
 				user.setType(UserConstants.NORMAL);
-				user.setUserName(form.getUserMail());
+				user.setUserName(form.getUserName());
+				user.setUserNameSimple(userNameS);
 				user.setMail(form.getUserMail());
 				
 				userLocalService.updatePassword(user, form.getPassword());
