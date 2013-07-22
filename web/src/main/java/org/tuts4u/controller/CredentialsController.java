@@ -79,18 +79,14 @@ public class CredentialsController {
 	@RequestMapping(value = Mappings.LOGOUT)  
 	public ModelAndView processLogout(HttpServletRequest request, HttpServletResponse response) {
 		
-		System.out.println("aaaaaaaaaaaaaaaaaaaaa");
+		System.out.println("----------------------||||||||||||||----------------------");
 		
 		HttpSession session = request.getSession();
 		User user = new User();
 		user.setType(UserConstants.GUEST);
 		session.setAttribute(Constants.SESSION_USER, user);
 		
-		System.out.println(user);
-		
-		SpringUtils.sendRedirect(response, Mappings.HOME);
-		
-		return new ModelAndView();
+		return SpringUtils.createRedirect(Mappings.HOME);
 	}
 	
 	/* *******************************

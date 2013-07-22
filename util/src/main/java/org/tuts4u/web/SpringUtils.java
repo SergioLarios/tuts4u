@@ -5,7 +5,6 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.tuts4u.constant.Constants;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -32,9 +31,8 @@ public class SpringUtils {
 	 * @param response
 	 * @param path
 	 */
-	public static void sendRedirect(HttpServletResponse response, String path) {
-		response.setStatus(HttpServletResponse.SC_MOVED_PERMANENTLY);
-		response.setHeader(Constants.LOCATION, path);
+	public static ModelAndView createRedirect(String path) {
+		return new ModelAndView(REDIRECT + path);
 	}
 
 	/**
@@ -60,5 +58,12 @@ public class SpringUtils {
 			log.error(e);
 		}
 	}
+	
+	
+	/* *****************************
+	 * ***** Private constants *****
+	 ***************************** */
+	
+	private static final String REDIRECT = "redirect:";
 	
 }
