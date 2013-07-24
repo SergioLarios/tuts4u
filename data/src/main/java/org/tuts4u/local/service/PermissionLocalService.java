@@ -5,10 +5,6 @@ import java.util.List;
 import org.tuts4u.model.Permission;
 import org.tuts4u.model.id.PermissionId;
 
-/**
- * Implements Permission Repository in a static way
- * @author vass
- */
 public interface PermissionLocalService {
 	
 	/**
