@@ -23,9 +23,8 @@ public class Mappings {
 	public static final String CREATE_ACCOUNT = "/create-account";
 	
 	// User
-	public static final String USER = "/user";
-	public static final String USER_HOME = USER +"/{userName}";
-	
+	public static final String USER_HOME = "/user/{userName}";
+	public static final String USER_SETTINGS = USER_HOME +"/settings";
 	
 }
  

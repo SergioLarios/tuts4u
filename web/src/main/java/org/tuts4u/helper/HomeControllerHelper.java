@@ -12,6 +12,10 @@ import org.tuts4u.view.HomeView;
 
 public class HomeControllerHelper {
 
+	/* *******************************
+	 ************** Home *************
+	 ****************************** */
+	
 	public static HomeView createHomeView(HttpServletRequest req) {
 		
 		HttpSession session = req.getSession();

@@ -7,6 +7,10 @@ import org.tuts4u.view.UserHomeView;
 
 public class UserControllerHelper {
 
+	/* *******************************
+	 ************ User Home **********
+	 ****************************** */
+	
 	public static UserHomeView createUserHomeView(HttpServletRequest req, User userProfile) {
 		
 		UserHomeView view = new UserHomeView();
@@ -14,5 +18,11 @@ public class UserControllerHelper {
 		
 		return view;
 	}
+	
+	/* *******************************
+	 ********* User Settings *********
+	 ****************************** */
+	
+	
 	
 }

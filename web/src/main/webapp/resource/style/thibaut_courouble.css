@@ -16,7 +16,7 @@
 	display: inline-block;
 }
 
-.nav>li,.nav:active>.active {
+.nav>li {
 	float: left;
 	position: relative;
 	margin: 0 0 4px;
@@ -46,7 +46,7 @@
 	text-shadow: 0 1px white, 0 0 20px white;
 }
 
-.nav>li.active,.nav>.active:active,.nav>li:active {
+.nav>li.active {
 	z-index: 2;
 	margin: 4px 0 0;
 	height: 43px;
@@ -84,15 +84,6 @@
 	border-right-width: 1px !important;
 	border-right-color: #c6c6c6;
 	border-radius: 0 5px 5px 0;
-}
-
-.nav>li+li,.nav:active>.active+li,.nav:active>li+.active {
-	border-left-width: 0;
-}
-
-.nav>.active+li,.nav>.active:active+li,.nav>li:active+li,.nav>li:active+.active
-	{
-	border-left-width: 1px;
 }
 
 .nav>li>a {

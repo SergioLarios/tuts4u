@@ -4,8 +4,11 @@
 	
 	<%-- CSS List --%>
 	<link rel="stylesheet" type="text/css" href="/resource/style/main.css"/>
+	<link rel="stylesheet" type="text/css" href="/resource/style/kendo.css"/>
 	
 	<%-- JS List --%>
+	<script type="text/javascript" src="/resource/js/jquery.min.js"></script>
+	<script type="text/javascript" src="/resource/js/kendo.web.min.js"></script>
 	<script type="text/javascript" src="/resource/js/main.js"></script>
 	
 	<%-- Title --%>

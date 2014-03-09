@@ -116,3 +116,18 @@ input {
 	text-align: center;
 	width: 80%;
 }
+
+/* ****** User profile ****** */
+
+.user-profile {
+	width: 20%;
+	padding: 1% 2% 2%;
+	border-right: 1px solid #AAAAAA;
+	float: left;
+}
+
+.user-blog {
+	width: 70%;
+	padding: 1% 2% 2%;
+	float: left;
+}

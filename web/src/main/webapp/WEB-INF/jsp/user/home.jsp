@@ -4,7 +4,25 @@
 
 	<div class="content-wrapper">
 	
-		<h1 class="home-h1">${view.userProfile.userName}</h1>
+		<div class="user-profile">
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+			sadfsfasasd fas d fas df<br/>
+		</div>
+		
+		<div class="user-blog">
+			<h1 class="home-h1">${view.userProfile.userName}</h1>
+		</div>
+		
+		<div class="clear"></div>
 		
 		
 	</div>

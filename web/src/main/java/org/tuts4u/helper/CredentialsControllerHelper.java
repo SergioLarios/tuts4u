@@ -20,12 +20,9 @@ public class CredentialsControllerHelper {
 
 	
 	/* *******************************
-	 ******** Public Methods *********
+	 ******** Create account *********
 	 ****************************** */
-	
-	/**
-	 * ### Create account ###
-	 */
+
 	public static CreateAccountView createCreateAccountView(CreateAccountForm form, CreateAccountFormValidator validator,
 			HttpServletRequest request, UserLocalService userLocalService) {
 		
@@ -71,9 +68,10 @@ public class CredentialsControllerHelper {
 		return view;
 	}
 	
-	/**
-	 * ### Login ###
-	 */
+	/* *******************************
+	 ************* Login *************
+	 ****************************** */
+	
 	public static LoginView createLoginView(LoginForm form, LoginFormValidator validator, 
 			HttpServletRequest request, UserLocalService userLocalService) {
 		
